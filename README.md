@@ -320,6 +320,8 @@ spec:
     kubectl get namespace -L istio-injection
     ```
     
+> Manual injectiion
+> `istioctl kube-inject -f <deployt.yaml>| kubectl apply -f -`    
     
 #### ingress gateway opened port    
 https://istio.io/docs/tasks/traffic-management/ingress/
@@ -498,4 +500,26 @@ $(kubectl -n istio-system get pod -l app=kiali -o jsonpath='{.items[0].metadata.
 
 
 ## Helm chart
+
+#### install
+
+```
+curl -LO https://get.helm.sh/helm-v2.14.1-linux-amd64.tar.gz
+tar -zxvf helm-v2.14.1-linux-amd64.tar.gz
+export PATH=$PWD/linux-amd64:$PATH 
+
+```
+```
+$ kubectl create serviceaccount --namespace kube-system tiller
+
+$ kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
+
+$ helm init --service-account tiller --upgrade
+```
+#### Sample create
+
+
+#### Upgrade, history, rollback
+
+
 https://github.com/IBM/helm101/tree/master/charts/guestbook
